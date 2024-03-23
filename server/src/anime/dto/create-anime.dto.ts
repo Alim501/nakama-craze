@@ -6,8 +6,5 @@ export class CreateAnimeDto{
     @ApiProperty({example:'Berserk ',description:"Название"})
     @IsString({message:"Должно быть строкой"})
     readonly title:string;
-    @ApiProperty({example:'/berserk.png',description:"Путь к картинке"})
-    @IsString({message:"Должно быть строкой"})
-    readonly img:string;
 
 }

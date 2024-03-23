@@ -9,6 +9,9 @@ export class CreateSizeDto{
     @ApiProperty({example:'М',description:"буква размера"})
     @IsString({message:"Должно быть строкой"})
     readonly code:string;
+    @ApiProperty({example:'М.png',description:"Параметры размера"})
+    @IsString({message:"Должно быть строкой"})
+    readonly img:string;
     @ApiProperty({example:'1',description:"ID категории"})
     @IsNumber({},{message:"Должно быть числом"})
     readonly category_id:number;

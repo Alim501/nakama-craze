@@ -7,8 +7,8 @@ export class CreatePromocodeDto{
     @IsString({message:"Должно быть строкой"})
     readonly code:string;
     @ApiProperty({example:'10',description:"Процент скидки"})
-    @IsString({message:"Должно быть строкой"})
-    readonly percent:string;
+    @IsNumber({},{message:"Должно быть числом"})
+    readonly percent:number;
     @ApiProperty({example:'11.11.2011',description:"Срок когда истечет"})
     @IsNumber({},{message:"Должно быть числом"})
     readonly expire_at:number;

@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { Product } from "src/products/products.model";
 
 interface AnimeCreationAttrs{
     title:string;
@@ -17,4 +18,7 @@ export class Anime extends Model<Anime, AnimeCreationAttrs>{
     @ApiProperty({example:'sizes/M.png',description:"Путь к файлу"})
     @Column({type:DataType.STRING,allowNull:false})
     img:string;
+
+    @HasMany(()=>Product)
+    products:Product[]
 }

@@ -8,6 +8,8 @@ import { Role } from 'src/auth/role.enum';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { ValidationPipe } from 'src/pipes/validation.pipe';
+import { BasketsService } from 'src/baskets/baskets.service';
+import { Basket } from 'src/baskets/basket.model';
 
 @ApiTags('Пользователи')
 @Controller('users')
@@ -15,13 +17,7 @@ export class UsersController {
 
     constructor(private userService: UsersService){}
 
-    @ApiOperation({summary:"Создание пользователя"})
-    @ApiResponse({status:200,type:User})
-    @UsePipes(ValidationPipe)
-    @Post()
-    create(@Body() userDto:CreateUserDto){
-        return this.userService.createUser(userDto);
-    }
+
     @ApiOperation({summary:"Получение всех пользователей"})
     @ApiResponse({status:200,type:[User]})
     @Roles(Role.Admin)

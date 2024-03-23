@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { Order } from "src/orders/orders.model";
 
 interface PromocodeCreationAttrs{
     code:string;
@@ -21,4 +22,7 @@ export class Promocode extends Model<Promocode, PromocodeCreationAttrs>{
     @ApiProperty({example:'11.11.2011',description:"Срок когда истечет"})
     @Column({type:DataType.DATE,allowNull:true})
     expire_at:number;
+
+    @HasMany(()=>Order)
+    orders:Order
 }

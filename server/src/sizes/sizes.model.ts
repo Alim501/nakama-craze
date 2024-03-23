@@ -1,9 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import { Category } from "src/categories/categories.model";
+import { Item } from "src/items/items.model";
 
 interface SizeCreationAttrs{
     title:string;
     code:string;
+    img:string;
     category_id:number;
 }
 
@@ -18,7 +21,18 @@ export class Size extends Model<Size, SizeCreationAttrs>{
     @ApiProperty({example:'М',description:"Буква размера"})
     @Column({type:DataType.STRING,allowNull:false})
     code:string;
+    @ApiProperty({example:'М.png',description:"Параметры размера"})
+    @Column({type:DataType.STRING,allowNull:false})
+    img:string;
+
+    @ForeignKey(()=>Category)
     @ApiProperty({example:'1',description:"ID категории"})
     @Column({type:DataType.INTEGER,allowNull:true})
     category_id:number;
+
+    @BelongsTo(()=>Category)
+    category:Category
+
+    @HasMany(()=>Item)
+    items:Item[];
 }

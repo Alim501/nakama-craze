@@ -15,9 +15,9 @@ export class CreateProductDto{
     @ApiProperty({example:'example.png',description:"Путь к файлу"})
     @IsString({message:"Должно быть строкой"})
     icon:string;
-    @ApiProperty({example:'1',description:"ID рисунка"})
+    @ApiProperty({example:'1',description:"ID аниме"})
     @IsNumber({},{message:"Должно быть числом"})
-    print_id:number;
+    anime_id:number;
     @ApiProperty({example:'1',description:"ID категории"})
     @IsNumber({},{message:"Должно быть числом"})
     category_id:number;

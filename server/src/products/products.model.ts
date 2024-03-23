@@ -1,5 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import { Product_Img } from "./products_img.model";
+import { Category } from "src/categories/categories.model";
+import { Item } from "src/items/items.model";
+import { Product_Color } from "src/colors/product_color.model";
+import { Color } from "src/colors/colors.model";
+import { Anime } from "src/anime/anime.model";
 
 interface ProductCreationAttrs{
     title:string;
@@ -27,10 +33,30 @@ export class Product extends Model<Product, ProductCreationAttrs>{
     @ApiProperty({example:'example.png',description:"Путь к файлу"})
     @Column({type:DataType.STRING,allowNull:false})
     icon:string;
-    @ApiProperty({example:'1',description:"ID рисунка"})
+    
+    @ForeignKey(()=>Anime)
+    @ApiProperty({example:'1',description:"ID аниме"})
     @Column({type:DataType.INTEGER,allowNull:true})
-    print_id:number;
+    anime_id:number;
+    
+    @BelongsTo(()=>Anime)
+    anime:Anime
+    
+    @ForeignKey(()=>Category)
     @ApiProperty({example:'1',description:"ID категории"})
     @Column({type:DataType.INTEGER,allowNull:true})
     category_id:number;
+    
+    @BelongsTo(()=>Category)
+    category:Category
+    
+    @HasMany(()=>Product_Img)
+    imgs:Product_Img[]
+
+    @HasMany(()=>Item)
+    items:Item[]
+
+    @BelongsToMany(()=>Color,()=>Product_Color)
+    colors:Color[];
+    
 }
