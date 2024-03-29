@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Color } from './colors.model';
 import { CreateColorDto } from './dto/create-color.dto';
-import { Product_Color } from './product_color.model';
 
 @Injectable()
 export class ColorsService {
@@ -19,8 +18,4 @@ export class ColorsService {
         return colors;
     }
 
-    // async getColorByProduct(product_id:number){
-    //     const color=await this.colorRepository.findOne({where:{}});
-    //     return color;
-    // }
 }

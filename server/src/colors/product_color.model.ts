@@ -11,8 +11,8 @@ export class Product_Color extends Model<Product_Color>{
     @Column({type:DataType.INTEGER,unique:true,autoIncrement:true,primaryKey:true})
     id:number;
     
-    @ApiProperty({example:'1',description:"ID продукта"})
     @ForeignKey(()=>Product)
+    @ApiProperty({example:'1',description:"ID продукта"})
     @Column({type:DataType.INTEGER,allowNull:false})
     product_id:number;
 

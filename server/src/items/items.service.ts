@@ -9,11 +9,6 @@ import { dot } from 'node:test/reporters';
 export class ItemsService {
   constructor(@InjectModel(Item) private itemRepository: typeof Item) {}
 
-  async findOrCreateItem(product_id: number,size_id:number,color_id:number) {
-    const basket = await this.itemRepository.findOrCreate({where:{ product_id: product_id }});
-    return basket;
-  }
-
   async createItem(dto:CreateItemDto){
     return this.itemRepository.create(dto);
   }

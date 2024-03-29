@@ -25,6 +25,8 @@ export class AuthService {
     }
     const hashPassword = await bcrypt.hash(userDto.password,5);
     const user=await this.userService.createUser({...userDto,password:hashPassword})
+    // user.basket = new Basket({user_id:user.id});
+    // user.basket.save()
     await this.basketService.createBasket(user.id);
     return this.generateToken(user)
   }

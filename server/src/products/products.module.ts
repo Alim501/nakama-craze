@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
@@ -9,10 +9,14 @@ import { Item } from 'src/items/items.model';
 import { Color } from 'src/colors/colors.model';
 import { Product_Color } from 'src/colors/product_color.model';
 import { Anime } from 'src/anime/anime.model';
+import { FilesModule } from 'src/files/files.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   providers: [ProductsService],
   imports:[
+    FilesModule,
+    forwardRef(()=>AuthModule),
     SequelizeModule.forFeature([Product,Product_Img,Anime,Category,Item,Color,Product_Color]),
   ],
   controllers: [ProductsController]

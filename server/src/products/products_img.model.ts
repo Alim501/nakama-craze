@@ -20,6 +20,7 @@ export class Product_Img extends Model<Product_Img, Product_ImgCreationAttrs>{
     @ApiProperty({example:'1',description:"ID продукта"})
     @Column({type:DataType.INTEGER,allowNull:true})
     product_id:number;
+    
     @BelongsTo(()=>Product)
     product:Product    
 }

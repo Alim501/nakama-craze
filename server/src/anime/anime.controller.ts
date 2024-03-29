@@ -20,7 +20,7 @@ export class AnimeController {
         return this.animeService.getAllAnime();
     };
 
-    @ApiOperation({summary:"Получение всех пользователей"})
+    @ApiOperation({summary:"Создание аниме"})
     @ApiResponse({status:200,type:[Anime]})
     @Roles(Role.Admin)
     @UseGuards(RolesGuard)

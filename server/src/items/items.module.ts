@@ -16,6 +16,5 @@ import { AuthModule } from 'src/auth/auth.module';
     SequelizeModule.forFeature([Item,Basket,Basket_item,Order,Order_item]),
   ],
   controllers: [ItemsController],
-  exports:[ItemsService]
 })
 export class ItemsModule {}

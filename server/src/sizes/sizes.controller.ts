@@ -15,10 +15,10 @@ export class SizesController {
 
     @ApiOperation({summary:"Создание размера"})
     @ApiResponse({status:200,type:[Size]})
-    @Post()
-    @UseInterceptors(FileInterceptor('img'))
     @Roles(Role.Admin)
     @UseGuards(RolesGuard)
+    @UseInterceptors(FileInterceptor('img'))
+    @Post()
     createPromocode(@Body() sizeDto: CreateSizeDto,
                     @UploadedFile() img){
       return this.sizesService.createSize(sizeDto,img);
@@ -29,7 +29,7 @@ export class SizesController {
     @Get()
     @Roles(Role.Admin)
     @UseGuards(RolesGuard)
-    getAllPromocodes(){
+    getAllSizes(){
       return this.sizesService.getAllSizes();
     }
 }
