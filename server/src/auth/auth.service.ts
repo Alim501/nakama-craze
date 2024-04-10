@@ -2,8 +2,8 @@ import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@n
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
-import * as bcrypt from 'bcryptjs'
 import { User } from 'src/users/users.model';
+import * as bcrypt from 'bcryptjs'
 import { BasketsService } from 'src/baskets/baskets.service';
 
 @Injectable()
@@ -23,8 +23,8 @@ export class AuthService {
     if(candidate){
         throw new HttpException("Пользователь с таким email существует",HttpStatus.BAD_REQUEST)
     }
-    const hashPassword = await bcrypt.hash(userDto.password,5);
-    const user=await this.userService.createUser({...userDto,password:hashPassword})
+
+    const user=await this.userService.createUser(userDto)
     // user.basket = new Basket({user_id:user.id});
     // user.basket.save()
     await this.basketService.createBasket(user.id);

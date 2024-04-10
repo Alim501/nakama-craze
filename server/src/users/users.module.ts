@@ -6,7 +6,6 @@ import { User } from './users.model';
 import { AuthModule } from 'src/auth/auth.module';
 import { Basket } from 'src/baskets/basket.model';
 import { Order } from 'src/orders/orders.model';
-import { BasketsService } from 'src/baskets/baskets.service';
 
 @Module({
   controllers: [UsersController],
