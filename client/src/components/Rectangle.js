@@ -1,34 +1,16 @@
 import React from "react";
-import TextCircle from "./TextCircle";
-const Rectangle = (variation) => {
-  const countries = [
-    "Казахстан",
-    "Россия",
-    "Беларусь",
-    "Киргизия",
-    "Китай",
-    "Узбекистан",
-  ];
+import { Image } from "react-bootstrap";
+
+const Rectangle = ({ anime, i }) => {
   return (
-    <div className="rounded-2 py-5 px-2 bg-white">
-      <h4>ДОСТАВКА</h4>
-      <p className="mt-3">
-        Теплый и приятный к телу худи из высококачественного хлопка с флисовым
-        подкладом. В просторном основном кармане скрывается несколько небольших
-        карманов для хранения мелочи, ключей или телефона. Принт по мотивам
-        аниме Тетрадь смерти.
-      </p>
-      <h5 className="text-gray">СТРАНЫ</h5>
-      <div className="d-flex">
-        {countries.map((country) => (
-          <TextCircle
-            title={country.toUpperCase()}
-            color={"#F3F3F2"}
-          ></TextCircle>
-        ))}
-      </div>
-      <h5 className="text-gray">СЕРВИС</h5>
-      <TextCircle title={"СДЭК"} color={"#F3F3F2"}></TextCircle>
+    <div className="rounded-2 bg-white d-flex flex-column justify-content-end align-items-center my-3">
+      <Image src={`${anime.img}`} className="rounded-2" fluid></Image>
+      <h5
+        className="text-white mb-0 position-absolute"
+        style={{ transform: `scaleX(${(-1) ** i})` }}
+      >
+        {anime.title}
+      </h5>
     </div>
   );
 };

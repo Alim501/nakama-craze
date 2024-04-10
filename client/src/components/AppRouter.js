@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { authRoutes, publicRoutes } from "../routes";
 import { Context } from "..";
 import NavBar from "./Navbar";
+import Footer from "./Footer";
 
 const AppRouter = () => {
   const { user } = useContext(Context);
@@ -28,6 +29,7 @@ const AppRouter = () => {
           />
         ))}
       </Routes>
+      <Footer></Footer>
     </div>
   );
 };

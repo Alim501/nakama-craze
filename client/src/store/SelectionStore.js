@@ -1,0 +1,54 @@
+import { makeAutoObservable } from "mobx";
+
+export default class SelectionStore {
+  constructor() {
+    this._categories = [
+      { id: 1, title: "Футболки" },
+      { id: 2, title: "Худи" },
+    ];
+    this._anime = [
+      { id: 1, title: "Berserk",img:"berserk.png" },
+      { id: 2, title: "Vagabond",img:"vaga.png" },
+      { id: 3, title: "Sage of Vinland",img:"sage.png" },
+      { id: 4, title: "Baki",img:"baki.png" },
+      { id: 5, title: "Vagabond",img:"vaga.png" },
+    ];
+    this._selectedCategory=null;
+    this._selectedAnime=null;
+    makeAutoObservable(this);
+  }
+
+  // Геттеры
+  get categories() {
+    return this._categories;
+  }
+
+  get anime() {
+    return this._anime;
+  }
+
+  get selectedCategory() {
+    return this._selectedCategory;
+  }
+
+  get selectedAnime() {
+    return this._selectedAnime;
+  }
+
+  // Сеттеры
+  set categories(categories) {
+    this._categories = categories;
+  }
+
+  set anime(anime) {
+    this._anime = anime;
+  }
+
+  set selectedCategory(category) {
+    this._selectedCategory = category;
+  }
+
+  set selectedAnime(anime) {
+    this._selectedAnime = anime;
+  }
+}

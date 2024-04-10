@@ -3,22 +3,26 @@ import { Context } from "..";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { Link } from "react-router-dom";
+import { ANIME_ROUTE, AUTH_ROUTE, CART_ROUTE, INFO_ROUTE, SEARCH_ROUTE, SHOP_ROUTE } from "../utils/consts";
+import Navigation from "./Navigation";
 
 const NavBar = () => {
   const { user } = useContext(Context);
   return (
+    <div>
     <Navbar expand="lg">
       <Container>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" navbarScroll>
-            <button className="btn rounded-3 bg-grey me-3 "><h5>КОЛЛЕКЦИИ</h5></button>
-            <button className="btn rounded-3 bg-grey me-3"><h5>АНИМЕ</h5></button>
-            <button className="btn rounded-3 bg-grey me-3"><h5>ОДЕЖДА</h5></button>
-            <button className="btn rounded-3 bg-grey me-3"><h5>ИНФОРМАЦИЯ</h5></button>
+            <Link to={SHOP_ROUTE} className="btn rounded-3 bg-grey me-3 "><h5>КОЛЛЕКЦИИ</h5></Link>
+            <Link to={ANIME_ROUTE} className="btn rounded-3 bg-grey me-3"><h5>АНИМЕ</h5></Link>
+            <Link to={SHOP_ROUTE} className="btn rounded-3 bg-grey me-3"><h5>ОДЕЖДА</h5></Link>
+            <Link to={INFO_ROUTE} className="btn rounded-3 bg-grey me-3"><h5>ИНФОРМАЦИЯ</h5></Link>
           </Nav>
           <div>
-            <button className="bg-yellow rounded-3">
+            <Link to={AUTH_ROUTE} className=" btn bg-grey rounded-3">
               <svg
                 width="60"
                 height="60"
@@ -35,8 +39,8 @@ const NavBar = () => {
                   fill="#262626"
                 />
               </svg>
-            </button>
-            <button className="bg-yellow rounded-3">
+            </Link>
+            <Link to={SEARCH_ROUTE} className=" btn bg-grey rounded-3">
               <svg
                 width="60"
                 height="60"
@@ -49,8 +53,8 @@ const NavBar = () => {
                   fill="#262626"
                 />
               </svg>
-            </button>
-            <button className="bg-yellow rounded-3">
+            </Link>
+            <Link to={CART_ROUTE} className="btn bg-grey rounded-3">
               <svg
                 width="60"
                 height="60"
@@ -63,11 +67,13 @@ const NavBar = () => {
                   fill="#262626"
                 />
               </svg>
-            </button>
+            </Link>
           </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    <Navigation></Navigation>
+    </div>
   );
 };
 export default NavBar;

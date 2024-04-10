@@ -6,17 +6,15 @@ import Orders from "./pages/Orders";
 import ProductPage from "./pages/ProductPage";
 import Shop from "./pages/Shop";
 import Auth from "./pages/Auth";
-import { ADMIN_ROUTE, ANIME_ROUTE, CART_ROUTE, INFO_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, ORDERS_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts";
-import Grid from "./pages/Grid";
+import { ADMIN_ROUTE, ANIME_ROUTE, AUTH_ROUTE, CART_ROUTE, INFO_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, ORDERS_ROUTE, REGISTRATION_ROUTE, SEARCH_ROUTE, SHOP_ROUTE } from "./utils/consts";
+import Search from "./pages/Search";
+import Anime from "./pages/Anime";
+import Info from "./pages/Info";
 
 export const authRoutes=[
     {
         path:ADMIN_ROUTE,
         Component:Admin
-    },
-    {
-        path:LOGIN_ROUTE,
-        Component:Auth
     },
     {
         path:ORDERS_ROUTE,
@@ -27,10 +25,6 @@ export const authRoutes=[
         Component:OrderPage
     },
     {
-        path:REGISTRATION_ROUTE,
-        Component:Auth
-    },
-    {
         path:CART_ROUTE,
         Component:Cart
     },
@@ -38,7 +32,7 @@ export const authRoutes=[
 export const publicRoutes=[
     {
         path:INFO_ROUTE,
-        Component:Grid
+        Component:Info
     },
     {
         path:MAIN_ROUTE,
@@ -54,6 +48,22 @@ export const publicRoutes=[
     },
     {
         path:ANIME_ROUTE,
-        Component:Grid
+        Component:Anime
+    },
+    {
+        path:SEARCH_ROUTE,
+        Component:Search
+    },
+    {
+        path:LOGIN_ROUTE,
+        Component:Auth
+    },
+    {
+        path:REGISTRATION_ROUTE,
+        Component:Auth
+    },
+    {
+        path:AUTH_ROUTE,
+        Component:Auth
     },
 ]

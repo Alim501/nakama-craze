@@ -20,3 +20,17 @@ body{
 .text-yellow{
   color: #FAEE51;
 }
+.bg-26{
+  background-color: #262626 !important;
+}
+.btn.bg-grey:hover{
+  background-color: #FAEE51 !important;
+  color: #262626 !important; 
+}
+.btn.bg-26:hover{
+  background-color: #FAEE51 !important;
+  color: #262626 !important; 
+}
+.footer{
+  background-color: #262626;
+}

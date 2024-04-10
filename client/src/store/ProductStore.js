@@ -1,15 +1,26 @@
 import { makeAutoObservable } from "mobx";
 
 export default class ProductStore {
-    constructor(title, price, desc, icon, anime, category, sizes, colors) {
-        this._title = title;
-        this._price = price;
-        this._desc = desc;
-        this._icon = icon;
-        this._anime = anime;
-        this._category = category;
-        this._sizes = sizes; // массив размеров
-        this._colors = colors; // массив цветов
+    constructor(title,price,desc,icon,anime,category) {
+            this._title=title;
+            this._price=price;
+            this._desc=desc;
+            this._icon=icon;
+            this._anime=anime;
+            this._category=category;
+            this._sizes =[
+                {"id":1,"title":"M"},
+                {"id":2,"title":"L"},
+                {"id":3,"title":"XL"},
+            ]; // массив размеров
+            this._colors = [
+                {"id":1,"title":"Black"},
+                {"id":2,"title":"White"}
+            ]; // массив цветов
+            this._imgs=[
+                {"id":1,"img":"berserk.png"},
+                {"id":2,"img":"vagabond.png"}
+            ];
         makeAutoObservable(this);
     }
 
