@@ -3,14 +3,16 @@ import { Context } from "..";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
-import { ANIME_ROUTE, AUTH_ROUTE, CART_ROUTE, INFO_ROUTE, SEARCH_ROUTE, SHOP_ROUTE } from "../utils/consts";
+import { Link,useLocation } from "react-router-dom";
+import { ANIME_ROUTE, AUTH_ROUTE, CART_ROUTE, INFO_ROUTE, MAIN_ROUTE, SEARCH_ROUTE, SHOP_ROUTE } from "../utils/consts";
 import Navigation from "./Navigation";
 
 const NavBar = () => {
   const { user } = useContext(Context);
+  const location = useLocation();
+  const isMain=location.path===MAIN_ROUTE
   return (
-    <div>
+    <div style={{ backgroundColor: isMain ? '#000000' : undefined}}>
     <Navbar expand="lg">
       <Container>
         <Navbar.Toggle aria-controls="navbarScroll" />

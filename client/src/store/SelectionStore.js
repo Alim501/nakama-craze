@@ -13,12 +13,22 @@ export default class SelectionStore {
       { id: 4, title: "Baki",img:"baki.png" },
       { id: 5, title: "Vagabond",img:"vaga.png" },
     ];
+    this._products=[
+      {id:1,title:"GUTS",price:11900,category:"ФУТБОЛКА",anime:"BERSERK",icon:"berserk.png",colors:[{code:"#F3F3F2",title:"WHITE"},{code:"#262626",title:"BLACK"}]},
+      {id:2,title:"GUTS V2",price:8900,category:"ФУТБОЛКА",anime:"BERSERK",icon:"berserk.png",colors:[{code:"#262626",title:"BLACK"}]},
+      {id:3,title:"MUSASHI",price:9900,category:"ФУТБОЛКА",anime:"VAGABOND",icon:"vaga.png",colors:[{code:"#F3F3F2",title:"WHITE"}]},
+      {id:4,title:"BAKI",price:11900,category:"ФУТБОЛКА",anime:"BAKI THE GRAPPLER",icon:"baki.png",colors:[{code:"#F3F3F2",title:"WHITE"},{code:"#262626",title:"BLACK"}]},
+      {id:5,title:"THORFIN",price:19900,category:"ХУДИ",anime:"SAGE OF VINLAND",icon:"sage.png",colors:[{code:"#262626",title:"BLACK"}]}
+    ]
     this._selectedCategory=null;
     this._selectedAnime=null;
     makeAutoObservable(this);
   }
 
   // Геттеры
+  get products() {
+    return this._products;
+  }
   get categories() {
     return this._categories;
   }
@@ -36,6 +46,9 @@ export default class SelectionStore {
   }
 
   // Сеттеры
+  set products(products) {
+    this._products=products;
+  }
   set categories(categories) {
     this._categories = categories;
   }

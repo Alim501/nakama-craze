@@ -34,3 +34,22 @@ body{
 .footer{
   background-color: #262626;
 }
+.no-under{
+  text-decoration: none;
+}
+.h-100vh{
+  height:100vh ;
+}
+.border-grey{
+  border:solid 1px #F3F3F2;
+}
+.size:hover{
+  background-color: #262626;
+  color: #FAEE51;
+  border: none;
+}
+.size-input:checked{
+  background-color: #262626;
+  color: #FAEE51;
+  border: none;
+}

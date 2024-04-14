@@ -1,16 +1,31 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import TextCircle from "./TextCircle";
+import { useNavigate } from "react-router-dom";
+import { SHOP_ROUTE } from "../utils/consts";
+import Price from "./Price";
 
-const ProductCard = () => {
+const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
   return (
-    <Card className="border-0">
+    <Card
+      className="border-0"
+      onClick={() => navigate(SHOP_ROUTE + "/" + product.id)}
+    >
       <Card.Body>
-      <Card.Text >#BERSERK</Card.Text>
-      <Card.Img src="holder.js/100px160" />
-        <TextCircle color={'#F3F3F2'} title={'WHITE'}/>
-        <Card.Text className="m-0">Футболка | Guts</Card.Text>
-        <Card.Text>11.900₸</Card.Text>
+        <Card.Text>#{product.anime}</Card.Text>
+        <Card.Img src="{{product.icon}}" />
+        <div className="d-flex">
+          {product.colors.map((color) => (
+            <TextCircle color={color.code} title={color.title} />
+          ))}
+        </div>
+        <Card.Text className="m-0">
+          {product.category}&nbsp;|&nbsp;{product.title}
+        </Card.Text>
+        <Card.Text>
+          <Price price={product.price}></Price>
+        </Card.Text>
       </Card.Body>
     </Card>
   );

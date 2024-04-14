@@ -16,13 +16,16 @@ const Navigation = () => {
         case(SHOP_ROUTE):
             page='КОЛЛЕКЦИИ'
             break;
+        case(MAIN_ROUTE):
+            return
     }
   return (
+    
     <Container>
         <div className="d-flex">
-        <Link className="text-black" to={MAIN_ROUTE}>ГЛАВНАЯ </Link>
+        <Link className="text-black no-under" to={MAIN_ROUTE}>ГЛАВНАЯ&nbsp; </Link>
         <h5> - </h5>
-        <Link className="text-black" to={location.pathname}> {page}</Link>
+        <Link className="text-black no-under" to={location.pathname}> &nbsp;{page}</Link>
         </div>
         <h4>{page}</h4>
     </Container>
