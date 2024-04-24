@@ -3,7 +3,7 @@ import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, Model,
 import { Product_Img } from "./products_img.model";
 import { Category } from "src/categories/categories.model";
 import { Item } from "src/items/items.model";
-import { Product_Color } from "src/colors/product_color.model";
+import { Product_Color } from "src/products/product_color.model";
 import { Color } from "src/colors/colors.model";
 import { Anime } from "src/anime/anime.model";
 
@@ -24,14 +24,14 @@ export class Product extends Model<Product, ProductCreationAttrs>{
     @ApiProperty({example:'GUTS ',description:"Название"})
     @Column({type:DataType.STRING,unique:true,allowNull:false})
     title:string;
-    @ApiProperty({example:'11.900',description:"Цена"})
-    @Column({type:DataType.DECIMAL(5,3),allowNull:false})
+    @ApiProperty({example:'11900',description:"Цена"})
+    @Column({type:DataType.INTEGER,allowNull:false})
     price:number;
     @ApiProperty({example:'Прекрасная футболка по мотивам берсерка',description:"Описание"})
     @Column({type:DataType.STRING,allowNull:false})
-    decs:string;
+    desc:string;
     @ApiProperty({example:'example.png',description:"Путь к файлу"})
-    @Column({type:DataType.STRING,allowNull:false})
+    @Column({type:DataType.STRING,allowNull:true})
     icon:string;
     
     @ForeignKey(()=>Anime)

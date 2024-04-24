@@ -1,13 +1,12 @@
-import { Body, Controller, Get, Post, Req, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ProductsService } from './products.service';
 import { Product } from './products.model';
-import { AnyFilesInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { Role } from 'src/auth/role.enum';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { CreateProductDto } from './dto/create-product.dto';
-import { query } from 'express';
 
 @Controller('products')
 export class ProductsController {
@@ -16,19 +15,32 @@ export class ProductsController {
   @ApiOperation({ summary: 'Получение списка продуктов' })
   @ApiResponse({ status: 200, type: [Product] })
   @Get()
-  getAll(@Req() req) {
+  async getAll(@Query() query):Promise<Product[]> {
     
-    return this.productsService.getAllProducts(req.query);
+    return this.productsService.getAllProducts(query);
   }
 
+
+  @ApiOperation({ summary: 'Получение одного продукта' })
+  @ApiResponse({ status: 200, type: Product })
+  @Get(":id")
+  async getOne(@Param('id') id: number):Promise<Product> {
+    
+    return this.productsService.getOneProductById(id);
+  }
+  
   @ApiOperation({summary:"Создание продукта"})
   @ApiResponse({status:200,type:[Product]})
   @Post()
-  @UseInterceptors(AnyFilesInterceptor()) 
+  @UseInterceptors(FileFieldsInterceptor([
+    { name: 'icon', maxCount: 1 },
+    { name: 'imgs'},
+  ]))
   @Roles(Role.Admin)
   @UseGuards(RolesGuard)
-  createPromocode(@Body() sizeDto: CreateProductDto,
-                  @UploadedFiles() imgs){
-    return this.productsService.createProduct(sizeDto,imgs);
+  async createPromocode(@Body() sizeDto: CreateProductDto,
+  @UploadedFiles() files: { icon?: Express.Multer.File[], background?: Express.Multer.File[] }):Promise<Product>{
+    return this.productsService.createProduct(sizeDto,files);
   }
 }
+

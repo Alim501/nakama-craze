@@ -19,4 +19,25 @@ export class SizesService {
   async getAllSizes() {
     return this.sizeRepository.findAll();
   }
+
+  async getOneSize(id: number): Promise<Size> {
+    return this.sizeRepository.findOne({ where: { id } });
+  }
+  async updateSize(params: {
+    id: number;
+    dto: CreateSizeDto;
+    img: any;}): Promise<Size> {
+    let { dto, img, id } = params;
+    if (!img.img) {
+      const fileName = await this.fileService.createFile(img, 'Anime');
+      dto = { ...dto, img: fileName };
+    }
+    await this.sizeRepository.update(dto, { where: { id } });
+    return this.sizeRepository.findOne({ where: { id } });
+  }
+  async deleteSize(id: number): Promise<number> {
+    return this.sizeRepository.destroy({
+      where: { id },
+    });
+  }
 }

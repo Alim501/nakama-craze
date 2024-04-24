@@ -1,4 +1,17 @@
-import { Body, Controller, Get, Post, UploadedFile, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Anime } from './anime.model';
 import { AnimeService } from './anime.service';
@@ -10,24 +23,58 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('anime')
 export class AnimeController {
-    
-    constructor(private animeService:AnimeService){}
-    
-    @ApiOperation({summary:"Получение всех аниме"})
-    @ApiResponse({status:200,type:[Anime]})
-    @Get()
-    getAll(){
-        return this.animeService.getAllAnime();
-    };
+  constructor(private animeService: AnimeService) {}
 
-    @ApiOperation({summary:"Создание аниме"})
-    @ApiResponse({status:200,type:[Anime]})
-    @Roles(Role.Admin)
-    @UseGuards(RolesGuard)
-    @UseInterceptors(FileInterceptor('img'))
-    @Post()
-    createAnime(@Body() dto:CreateAnimeDto,
-                @UploadedFile() img){
-        return this.animeService.createAnime(dto,img);
-    }
+  @ApiOperation({ summary: 'Получение всех аниме' })
+  @ApiResponse({ status: 200, type: [Anime] })
+  @Get()
+  async getAll(): Promise<Anime[]> {
+    return this.animeService.getAllAnime();
+  }
+
+  @ApiOperation({ summary: 'Получение всех аниме' })
+  @ApiResponse({ status: 200, type: [Anime] })
+  @Get(':id')
+  async getOne(@Param('id') id: string): Promise<Anime> {
+    return this.animeService.getOneAnime(Number(id));
+  }
+
+  @ApiOperation({ summary: 'Создание аниме' })
+  @ApiResponse({ status: 200, type: [Anime] })
+  @Roles(Role.Admin)
+  @UseGuards(RolesGuard)
+  @UseInterceptors(FileInterceptor('img'))
+  @Post()
+  async createAnime(
+    @Body() dto: CreateAnimeDto,
+    @UploadedFile() img,
+  ): Promise<Anime> {
+    return this.animeService.createAnime(dto, img);
+  }
+  @ApiOperation({ summary: 'Редактирование аниме' })
+  @ApiResponse({ status: 200, type: Anime })
+  @Roles(Role.Admin)
+  @UseGuards(RolesGuard)
+  @UseInterceptors(FileInterceptor('img'))
+  @Put(':id')
+  async updateAnime(
+    @Body() dto: CreateAnimeDto,
+    @UploadedFile() img,
+    @Param('id') id: string,
+  ): Promise<Anime> {
+    return this.animeService.updateAnime({
+      id: Number(id),
+      dto,
+      img,
+    });
+  }
+
+  @ApiOperation({ summary: 'Удаление аниме' })
+  @ApiResponse({ status: 200, type: Anime })
+  @Roles(Role.Admin)
+  @UseGuards(RolesGuard)
+  @Delete(':id')
+  async deletePost(@Param('id') id: string): Promise<number> {
+    return this.animeService.deleteAnime(Number(id));
+  }
 }

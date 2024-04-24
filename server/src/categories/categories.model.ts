@@ -16,9 +16,6 @@ export class Category extends Model<Category, CategoryCreationAttrs>{
     @ApiProperty({example:'Футболка ',description:"Название"})
     @Column({type:DataType.STRING,unique:true,allowNull:false})
     title:string;
-    @ApiProperty({example:'Наши футболки-лучшие',description:"Описание"})
-    @Column({type:DataType.STRING,allowNull:false})
-    decs:string;
 
     @HasOne(()=>Product)
     products:Product[]

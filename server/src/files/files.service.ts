@@ -8,14 +8,15 @@ export class FilesService {
 
     async createFile(file,dirName:string):Promise<string>{
         try{
-            const fileName=uuid.v4()+'.jpg';
+            const fileName=uuid.v4()+'.png';
             const filePath=path.resolve(__dirname,'..','static',dirName)
             if(!fs.existsSync(filePath)){
-                fs.mkdir(filePath,{recursive:true},()=>{})
+                fs.mkdirSync(filePath,{recursive:true})
             }
-            await fs.promises.writeFile(path.join(filePath,fileName),file.buffer)
+            fs.writeFileSync(path.join(filePath,fileName),file.buffer)
             return fileName;
         }catch(e){
+            console.log(e)
             throw new HttpException('Произошла ошибка при записи файла',HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }

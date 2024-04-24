@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { Category } from './categories.model';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Roles } from 'src/auth/roles-auth.decorator';
@@ -16,16 +16,40 @@ export class CategoriesController {
   @Post()
   @Roles(Role.Admin)
   @UseGuards(RolesGuard)
-  createCategory(@Body() categoryDto: CreateCategoryDto){
+  async createCategory(@Body() categoryDto: CreateCategoryDto):Promise<Category>{
     return this.categoriesService.createCategory(categoryDto);
   }
 
   @ApiOperation({summary:"Получение всех категорий"})
   @ApiResponse({status:200,type:[Category]})
   @Get()
-  @Roles(Role.Admin)
-  @UseGuards(RolesGuard)
-  getAllCategories(){
+  async getAllCategories():Promise<Category[]>{
     return this.categoriesService.getAllCategories();
   }
+
+  @ApiOperation({summary:"Получение одной категорий"})
+  @ApiResponse({status:200,type:Category})
+  @Get(':id')
+  async getOneCategory(@Param('id') id: string):Promise<Category>{
+    return this.categoriesService.getOneCategory(Number(id));
+  }
+
+  @ApiOperation({summary:"Обновление категории"})
+  @ApiResponse({status:200,type:Category})
+  @Put(':id')
+  @Roles(Role.Admin)
+  @UseGuards(RolesGuard)
+  async updateCategory(@Param('id') id: string, @Body() dto: CreateCategoryDto):Promise<Category>{
+    return this.categoriesService.updateCategory(Number(id),dto);
+  }
+
+  @ApiOperation({summary:"Удаление категории"})
+  @ApiResponse({status:200,type:Category})
+  @Delete(':id')
+  @Roles(Role.Admin)
+  @UseGuards(RolesGuard)
+  async deleteCategory(@Param('id') id: string):Promise<number>{
+    return this.categoriesService.deleteCategory(Number(id));
+  }
+  
 }

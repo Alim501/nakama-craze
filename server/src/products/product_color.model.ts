@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 import { Product } from "src/products/products.model";
-import { Color } from "./colors.model";
+import { Color } from "../colors/colors.model";
 
 
 

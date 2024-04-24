@@ -18,7 +18,6 @@ import { Basket } from './baskets/basket.model';
 import { Basket_item } from './baskets/basket_item.model';
 import { Category } from './categories/categories.model';
 import { Color } from './colors/colors.model';
-import { Product_Color } from './colors/product_color.model';
 import { Item } from './items/items.model';
 import { Order } from './orders/orders.model';
 import { Order_item } from './orders/order_item.model';
@@ -27,6 +26,7 @@ import { Product_Img } from './products/products_img.model';
 import { Promocode } from './promocodes/promocodes.model';
 import { Size } from './sizes/sizes.model';
 import { FilesModule } from './files/files.module';
+import { Product_Color } from './products/product_color.model';
 
 @Module({
   controllers: [],

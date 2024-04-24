@@ -9,5 +9,7 @@ export class CreateColorDto{
     @ApiProperty({example:'#FFF',description:"Код цвета"})
     @IsString({message:"Должно быть строкой"})
     readonly color:string;
-
+    @ApiProperty({example:'#FFF',description:"Код цвета"})
+    @IsString({message:"Должно быть строкой"})
+    readonly text_color:string;
 }
