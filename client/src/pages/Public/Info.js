@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
-import TextCircle from "../components/TextCircle";
+import TextCircle from "../../components/Elements/TextCircle";
 const countries = [
   "КАЗАХСТАН",
   "РОССИЯ",

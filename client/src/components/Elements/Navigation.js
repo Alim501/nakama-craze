@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ANIME_ROUTE, INFO_ROUTE, MAIN_ROUTE, SHOP_ROUTE } from "../utils/consts";
+import { ANIME_ROUTE, INFO_ROUTE, MAIN_ROUTE, SHOP_ROUTE } from "../../utils/consts";
 import { Container } from "react-bootstrap";
 
 const Navigation = () => {
@@ -16,7 +16,7 @@ const Navigation = () => {
         case(SHOP_ROUTE):
             page='КОЛЛЕКЦИИ'
             break;
-        case(MAIN_ROUTE):
+        default:
             return
     }
   return (

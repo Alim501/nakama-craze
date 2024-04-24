@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import { authRoutes, publicRoutes } from "../routes";
 import { Context } from "..";
-import NavBar from "./Navbar";
-import Footer from "./Footer";
+import NavBar from "./Elements/Navbar";
+import Footer from "./Elements/Footer";
 
 const AppRouter = () => {
   const { user } = useContext(Context);

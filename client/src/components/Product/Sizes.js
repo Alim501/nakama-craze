@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TextCircle from "./TextCircle";
+import TextCircle from "../Elements/TextCircle";
 
 const Sizes = ({ sizes }) => {
   const [selectedSize, setSelectedSize] = useState(null);
@@ -26,7 +26,7 @@ const Sizes = ({ sizes }) => {
               className="rounded-3 border-grey size"
               htmlFor={`size${size.id}`}
             >
-              {size.title}
+              {size.code}
             </label>
           </div>
         ))}

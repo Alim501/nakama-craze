@@ -1,15 +1,15 @@
-import Admin from "./pages/Admin";
-import Cart from "./pages/Cart";
-import Main from "./pages/Main";
-import OrderPage from "./pages/OrderPage";
-import Orders from "./pages/Orders";
-import ProductPage from "./pages/ProductPage";
-import Shop from "./pages/Shop";
-import Auth from "./pages/Auth";
+import Admin from "./pages/Private/Admin/Admin";
+import Cart from "./pages/Private/Cart";
+import Main from "./pages/Public/Main";
+import OrderPage from "./pages/Private/OrderPage";
+import Orders from "./pages/Private/Admin/Orders";
+import ProductPage from "./pages/Public/ProductPage";
+import Shop from "./pages/Public/Shop";
+import Auth from "./pages/Public/Auth";
 import { ADMIN_ROUTE, ANIME_ROUTE, AUTH_ROUTE, CART_ROUTE, INFO_ROUTE, LOGIN_ROUTE, MAIN_ROUTE, ORDERS_ROUTE, REGISTRATION_ROUTE, SEARCH_ROUTE, SHOP_ROUTE } from "./utils/consts";
-import Search from "./pages/Search";
-import Anime from "./pages/Anime";
-import Info from "./pages/Info";
+import Search from "./pages/Public/Search";
+import Anime from "./pages/Public/Anime";
+import Info from "./pages/Public/Info";
 
 export const authRoutes=[
     {
