@@ -29,7 +29,6 @@ import { FilesModule } from './files/files.module';
 import { Product_Color } from './products/product_color.model';
 
 @Module({
-  controllers: [],
   providers: [],
   imports: [
     ConfigModule.forRoot({

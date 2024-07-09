@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Size } from './sizes.model';
 import { CreateSizeDto } from './dto/create-size.dto';
 import { FilesService } from 'src/files/files.service';
+import { Category } from 'src/categories/categories.model';
 
 @Injectable()
 export class SizesService {
@@ -17,7 +18,7 @@ export class SizesService {
   }
 
   async getAllSizes() {
-    return this.sizeRepository.findAll();
+    return this.sizeRepository.findAll({include:{model:Category,attributes:['title']}});
   }
 
   async getOneSize(id: number): Promise<Size> {

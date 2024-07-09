@@ -1,40 +1,35 @@
-import React, { useContext, useState } from "react";
-import { Button, Card, CardBody, Container, Form } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Card, Container, Form } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "../../utils/consts";
-import { login, registration } from "../../http/userApi";
-import { observer } from "mobx-react-lite";
-import { Context } from "../..";
+import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../../utils/consts";
+import { useDispatch } from "react-redux";
+import { userLogin, userRegistration } from "../../store/UserSlice";
 
 const Auth = () => {
-  const { user } = useContext(Context);
   const location = useLocation();
+  const fromPage = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
   const isLogin = location.pathname === LOGIN_ROUTE;
   const isRegister = location.pathname === REGISTRATION_ROUTE;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
   async function handleSubmit(e) {
-    e.preventDefault(); 
+    e.preventDefault();
     try {
-      let data;
-      
       if (isLogin) {
-        data = await login(email, name, password);
+        await dispatch(userLogin({ email, name, password })).unwrap();
       } else if (isRegister) {
-        data = await registration(email, name, password);
+        await dispatch(userRegistration({ email, name, password })).unwrap();
       }
-      
-      user.setUser(data);
-      user.setIsAuth(true);
-      console.log(user)
-      navigate(SHOP_ROUTE)
+      navigate(fromPage, { replace: true });
     } catch (error) {
-      console.log(error)
-      alert(error.response.data.message)
+      console.log(error);
+      alert(error.message);
     }
   }
+
   return (
     <Container>
       <Card>
@@ -75,7 +70,7 @@ const Auth = () => {
               <Form.Label>Почтовый адрес</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Имя пользователя"
+                placeholder="почтовый адрес"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -84,7 +79,7 @@ const Auth = () => {
               <Form.Label>Имя пользователя</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="почтовый адрес"
+                placeholder="Имя пользователя"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -98,12 +93,10 @@ const Auth = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
-            <Button type="submit" >
-              ЗАРЕГИСТРИРОВАТЬСЯ
-            </Button>
+            <Button type="submit">ЗАРЕГИСТРИРОВАТЬСЯ</Button>
           </Form>
         ) : (
-          <CardBody>
+          <Card.Body>
             <Link to={LOGIN_ROUTE} className="btn rounded-3 bg-grey me-3">
               <h5>ВОЙТИ</h5>
             </Link>
@@ -113,10 +106,11 @@ const Auth = () => {
             >
               <h5>ЗАРЕГИСТРИРОВАТЬСЯ</h5>
             </Link>
-          </CardBody>
+          </Card.Body>
         )}
       </Card>
     </Container>
   );
 };
+
 export default Auth;

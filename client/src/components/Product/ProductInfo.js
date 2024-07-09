@@ -4,15 +4,12 @@ import TextCircle from "../Elements/TextCircle";
 import Price from "./Price";
 import Sizes from "./Sizes";
 const ProductInfo = ({product}) => {
-  if(product.title===undefined){
-    return(<div></div>)
-  }
   return (
     <Col md={6}>
       <Card className="border-0 px-4 py-5">
         <div className="d-flex">
-          {product.colors.map((color) => (
-            <TextCircle key={color.id} title={color.title} color={color.color}></TextCircle>
+          {product.colors.map((color, index) => (
+            <TextCircle key={index} title={color.title} color={color.color} text_color={color.text_color}></TextCircle>
           ))}
         </div>
         <Card.Text className="m-0">

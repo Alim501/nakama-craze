@@ -1,30 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import {Container,Row, Spinner,} from 'react-bootstrap'
-import ProductCarousel from '../../components/Product/ProductCarousel'; 
-import ProductInfo from '../../components/Product/ProductInfo';
-import { observer } from 'mobx-react-lite';
-import { getOneProducts } from '../../http/ProductApi';
-import { useParams } from 'react-router-dom';
+import React, { Suspense } from "react";
+import { Container, Row, Spinner } from "react-bootstrap";
+import ProductCarousel from "../../components/Product/ProductCarousel";
+import ProductInfo from "../../components/Product/ProductInfo";
+import { getOneProducts } from "../../http/ProductApi";
+import { Await, defer, useLoaderData } from "react-router-dom";
 
-const ProductPage=observer(()=>{
+const ProductPage = () => {
+  const { product } = useLoaderData();
 
-    const [product,setProduct]=useState()
-    const {id}=useParams()
-    useEffect(()=>{
-        getOneProducts(id).then(data=>
-          setProduct(data)
-          )
-      },[])
-      if(!product){
-        return(<Spinner animation='grow'/>)
-      }
-    return(
-        <Container>
-            <Row>
-            <ProductCarousel imgs={product.imgs}></ProductCarousel>
-            <ProductInfo product={product}></ProductInfo>
-            </Row>
-        </Container>
-    )
-})
-export default ProductPage;
+  return (
+    <Container>
+      <Row>
+        <Suspense fallback={<Spinner animation="grow"></Spinner>}>
+          <Await resolve={product}>
+            {(resolvedProduct) => {
+              let objImg = { img: resolvedProduct.icon };
+              resolvedProduct.imgs.push(objImg);
+              return (
+                <>
+                  <ProductCarousel imgs={resolvedProduct.imgs} />
+                  <ProductInfo product={resolvedProduct} />
+                </>
+              );
+            }}
+          </Await>
+        </Suspense>
+      </Row>
+    </Container>
+  );
+};
+
+const ProductLoader = async ({ params }) => {
+  return defer({
+    product: getOneProducts(params.id),
+  });
+};
+
+export { ProductPage, ProductLoader };

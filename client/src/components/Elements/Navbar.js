@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
-import { Context } from "../..";
+import React from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link,useLocation } from "react-router-dom";
-import { ANIME_ROUTE, AUTH_ROUTE, CART_ROUTE, INFO_ROUTE, MAIN_ROUTE, SEARCH_ROUTE, SHOP_ROUTE } from "../../utils/consts";
+import { ADMIN_ROUTE, ANIME_ROUTE, AUTH_ROUTE, CART_ROUTE, INFO_ROUTE, MAIN_ROUTE, ORDERS_ROUTE, SEARCH_ROUTE, SHOP_ROUTE } from "../../utils/consts";
 import Navigation from "./Navigation";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
-  const { user } = useContext(Context);
+  const { user } = useSelector(state=>state.user);
   const location = useLocation();
   const isMain=location.pathname===MAIN_ROUTE
   return (
@@ -24,7 +24,7 @@ const NavBar = () => {
             <Link to={INFO_ROUTE} className="btn rounded-3 bg-grey me-3"><h5>ИНФОРМАЦИЯ</h5></Link>
           </Nav>
           <div>
-            <Link to={AUTH_ROUTE} className=" btn bg-grey rounded-3">
+            <Link to={user? user.role ==='admin'? ADMIN_ROUTE: ORDERS_ROUTE :AUTH_ROUTE  } className=" btn bg-grey rounded-3">
               <svg
                 width="60"
                 height="60"

@@ -17,5 +17,5 @@ $authHost.interceptors.request.use(authInterceptor)
 
 export{
     $host,
-    $authHost
+    $authHost,
 }

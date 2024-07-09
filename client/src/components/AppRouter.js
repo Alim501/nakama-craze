@@ -1,36 +1,68 @@
-import React, { useContext } from "react";
-import { Route, Routes } from "react-router-dom";
-import { authRoutes, publicRoutes } from "../routes";
-import { Context } from "..";
-import NavBar from "./Elements/Navbar";
-import Footer from "./Elements/Footer";
+import React from "react";
+import {
+  Outlet,
+  RouterProvider,
+  createBrowserRouter,
+  useRouteError,
+} from "react-router-dom";
+import { adminRoutes, authRoutes, publicRoutes } from "../routes";
+import AdminNavbar from "./Elements/Admin/AdminNavbar";
+import Layout from "./Elements/Layout";
+import { RequireAuth } from "../hoc/RequireAuth";
+import { RequireAdmin } from "../hoc/RequireAdmin";
+import Page404 from "../pages/Page404";
 
 const AppRouter = () => {
-  const { user } = useContext(Context);
-  return (
-    <div>
-      <NavBar></NavBar>
-      <Routes>
-        {user._isAuth &&
-          authRoutes.map(({ path, Component }) => (
-            <Route
-              key={path}
-              path={path}
-              element={<Component></Component>}
-              exact
-            />
-          ))}
-        {publicRoutes.map(({ path, Component }) => (
-          <Route
-            key={path}
-            path={path}
-            element={<Component></Component>}
-            exact
-          />
-        ))}
-      </Routes>
-      <Footer></Footer>
-    </div>
-  );
+  function ErrorBoundary() {
+    let error = useRouteError();
+    console.log(error);
+    return <div>Error: {error.message}</div>;
+  }
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout />,
+      errorElement: <ErrorBoundary />,
+      children: [
+        ...publicRoutes.map(({ path, Component, compLoader }) => ({
+          path,
+          element: <Component />,
+          loader: compLoader,
+        })),
+        {
+          path: "/user",
+          element: <RequireAuth ><Outlet></Outlet></RequireAuth>,
+          children: authRoutes.map(({ path, Component, compLoader }) => ({
+            path,
+            element: <Component />,
+            loader: compLoader,
+          })),
+        },
+        {
+          path: "/admin",
+          element: (
+            <RequireAuth>
+              <RequireAdmin>
+                <AdminNavbar />
+              </RequireAdmin>
+            </RequireAuth>
+          ),
+          children: adminRoutes.map(({ path, Component, compLoader }) => ({
+            path,
+            element: <Component />,
+            loader: compLoader,
+          })),
+        },
+        {
+          path: "*",
+          element: <Page404 />,
+        },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 };
+
 export default AppRouter;

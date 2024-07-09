@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Orders=()=>{
+const Profile=()=>{
     return(
         <div>
-            Orders
+            Profile
         </div>
     )
 }
-export default Orders;
+export default Profile;

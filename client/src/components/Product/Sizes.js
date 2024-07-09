@@ -11,10 +11,10 @@ const Sizes = ({ sizes }) => {
   return (
     <div className="d-flex justify-content-between">
       <div className="d-flex">
-        {sizes.map((size) => (
-          <div key={size.id}>
+        {sizes.map((size, index) => (
+          <div key={index}>
             <input
-              className="size-input"
+              className="size-input d-none"
               type="radio"
               id={`size${size.id}`}
               name="sizes"
@@ -23,7 +23,7 @@ const Sizes = ({ sizes }) => {
               onChange={handleSizeChange}
             />
             <label
-              className="rounded-3 border-grey size"
+              className="rounded-3 border-grey size px-3 py-2 me-3"
               htmlFor={`size${size.id}`}
             >
               {size.code}
@@ -31,7 +31,8 @@ const Sizes = ({ sizes }) => {
           </div>
         ))}
       </div>
-      <TextCircle title={"SIZE"} color={"F3F3F2"}></TextCircle>
+      <TextCircle title={"SIZE"} color={"#F3F3F2"} text_color={"#262626"} />
+      <TextCircle></TextCircle>
     </div>
   );
 };

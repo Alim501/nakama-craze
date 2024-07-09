@@ -9,16 +9,15 @@ const ProductCarousel= observer(({imgs})=> {
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
-  console.log(imgs)
   if(imgs[0]===undefined){
     return(<div></div>)
   }
   return (
     <Col md={6}>
       <Carousel activeIndex={index} onSelect={handleSelect}>
-        {imgs.map((img)=>(
-          <Carousel.Item key={img.id}>
-          <Image src={img.img}></Image>
+        {imgs.map((img,mapIndex)=>(
+          <Carousel.Item key={mapIndex}>
+            <Image src={process.env.REACT_APP_API_URL+"/files/Products/"+img.img} />
         </Carousel.Item>
         ))}
       </Carousel>

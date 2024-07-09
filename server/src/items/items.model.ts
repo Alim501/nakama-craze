@@ -33,7 +33,7 @@ export class Item extends Model<Item, ItemCreationAttrs>{
     color_id:number;
     
     @BelongsTo(()=>Color)
-    storage:Color
+    color:Color
 
     @ForeignKey(()=>Size)
     @ApiProperty({example:'1',description:"ID размера"})
@@ -41,7 +41,7 @@ export class Item extends Model<Item, ItemCreationAttrs>{
     size_id:number;
     
     @BelongsTo(()=>Size)
-    sizes:Size
+    size:Size
 
     @BelongsToMany(()=>Basket,()=>Basket_item)
     baskets:Basket[]

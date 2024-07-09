@@ -17,6 +17,7 @@ export class CategoriesController {
   @Roles(Role.Admin)
   @UseGuards(RolesGuard)
   async createCategory(@Body() categoryDto: CreateCategoryDto):Promise<Category>{
+    console.log('Request Body:', categoryDto);
     return this.categoriesService.createCategory(categoryDto);
   }
 

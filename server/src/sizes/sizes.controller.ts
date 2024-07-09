@@ -36,8 +36,6 @@ export class SizesController {
   @ApiOperation({ summary: 'Возвращение всех размеров' })
   @ApiResponse({ status: 200, type: [Size] })
   @Get()
-  @Roles(Role.Admin)
-  @UseGuards(RolesGuard)
   getAllSizes() {
     return this.sizesService.getAllSizes();
   }

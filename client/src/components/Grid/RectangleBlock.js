@@ -1,15 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Row } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import Rectangle from "./Rectangle";
-import { Context } from "../..";
 
-const RectangleBlock = observer(({ i }) => {
-  const { selection } = useContext(Context);
+const RectangleBlock = observer(({ anime,i }) => {
   const miniRect = [];
   const rect = [];
   let count = 0;
-  const animes = selection.anime.slice(i, i + 3);
+  const animes = anime.slice(i, i + 3);
   for (const anime of animes) {
     count === 0
       ? rect.push(<Rectangle key={"rect"+i} anime={anime} i={i}></Rectangle>)

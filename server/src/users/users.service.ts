@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './users.model';
 import * as bcrypt from 'bcryptjs'
 import { CreateUserDto } from './dto/create-user.dto';
+import { Order } from 'src/orders/orders.model';
 
 @Injectable()
 export class UsersService {
@@ -16,7 +17,7 @@ export class UsersService {
     }
 
     async getAllUsers(){
-        const users=await this.userRepository.findAll();
+        const users=await this.userRepository.findAll({include:{model:Order,attributes:['id']}});
         return users;
     }
 

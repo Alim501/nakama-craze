@@ -25,10 +25,10 @@ export class AnimeService {
   async updateAnime(params: {
     id: number;
     dto: CreateAnimeDto;
-    img: any;
+    img?: any;
   }): Promise<Anime> {
     let { dto, img, id } = params;
-    if (!img) {
+    if (img) {
       const fileName = await this.fileService.createFile(img, 'Anime');
       dto = { ...dto, img: fileName };
     }

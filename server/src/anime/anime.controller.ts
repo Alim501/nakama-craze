@@ -9,8 +9,7 @@ import {
   UploadedFile,
   UseGuards,
   UseInterceptors,
-  UsePipes,
-  ValidationPipe,
+
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Anime } from './anime.model';
@@ -21,7 +20,7 @@ import { RolesGuard } from 'src/auth/roles.guard';
 import { CreateAnimeDto } from './dto/create-anime.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
-@Controller('anime')
+@Controller('animes')
 export class AnimeController {
   constructor(private animeService: AnimeService) {}
 
@@ -29,6 +28,7 @@ export class AnimeController {
   @ApiResponse({ status: 200, type: [Anime] })
   @Get()
   async getAll(): Promise<Anime[]> {
+    console.log("SERVER")
     return this.animeService.getAllAnime();
   }
 
@@ -49,8 +49,10 @@ export class AnimeController {
     @Body() dto: CreateAnimeDto,
     @UploadedFile() img,
   ): Promise<Anime> {
+    console.log(dto)
     return this.animeService.createAnime(dto, img);
   }
+
   @ApiOperation({ summary: 'Редактирование аниме' })
   @ApiResponse({ status: 200, type: Anime })
   @Roles(Role.Admin)

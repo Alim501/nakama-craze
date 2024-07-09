@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 import { Order } from "./orders.model";
 import { Item } from "src/items/items.model";
 
@@ -28,4 +28,10 @@ export class Order_item extends Model<Order_item, Order_itemCreationAttrs>{
     @ApiProperty({example:'1',description:"ID предмета"})
     @Column({type:DataType.INTEGER,allowNull:true})
     item_id:number;
+
+    @BelongsTo(() => Order)
+    order: Order;
+
+    @BelongsTo(() => Item)
+    item: Item;
 }
