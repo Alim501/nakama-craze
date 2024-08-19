@@ -9,14 +9,17 @@ import { dot } from 'node:test/reporters';
 export class ItemsService {
   constructor(@InjectModel(Item) private itemRepository: typeof Item) {}
 
-  async createItem(dto:CreateItemDto){
-    return this.itemRepository.create(dto);
+  async findOrCreateItem(dto: CreateItemDto): Promise<Item> {
+    const { product_id, color_id, size_id } = dto;
+    const [item, created] = await this.itemRepository.findOrCreate({
+      where: { product_id, color_id, size_id },
+      defaults: dto,
+    });
+
+    return item;
   }
 
-  async getAllItems(){
+  async getAllItems() {
     return this.itemRepository.findAll();
   }
-
-
-  
 }

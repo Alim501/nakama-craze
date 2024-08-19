@@ -46,11 +46,11 @@ export class ProductsController {
   @Roles(Role.Admin)
   @UseGuards(RolesGuard)
   async createProduct(
-    @Body() sizeDto: CreateProductDto,
+    @Body() productDto: CreateProductDto,
     @UploadedFiles()
     files: { icon?: Express.Multer.File[]; background?: Express.Multer.File[] },
   ): Promise<Product> {
-    return this.productsService.createProduct(sizeDto, files);
+    return this.productsService.createProduct(productDto, files);
   }
   @ApiOperation({ summary: 'Редактирование продукта' })
   @ApiResponse({ status: 200, type: [Product] })
@@ -60,11 +60,12 @@ export class ProductsController {
   )
   @Roles(Role.Admin)
   @UseGuards(RolesGuard)
-  async updatePromocode(
+  async updateProduct(
+    @Param('id') id: string,
     @Body() sizeDto: CreateProductDto,
     @UploadedFiles()
     files: { icon?: Express.Multer.File[]; background?: Express.Multer.File[] },
   ): Promise<Product> {
-    return this.productsService.createProduct(sizeDto, files);
+    return this.productsService.updateProduct(id,sizeDto, files);
   }
 }
