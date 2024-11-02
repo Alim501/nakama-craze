@@ -14,11 +14,19 @@ import { Product_Color } from './product_color.model';
 
 @Module({
   providers: [ProductsService],
-  imports:[
+  imports: [
     FilesModule,
-    forwardRef(()=>AuthModule),
-    SequelizeModule.forFeature([Product,Product_Img,Anime,Category,Item,Color,Product_Color]),
+    forwardRef(() => AuthModule),
+    SequelizeModule.forFeature([
+      Product,
+      Product_Img,
+      Anime,
+      Category,
+      Item,
+      Color,
+      Product_Color,
+    ]),
   ],
-  controllers: [ProductsController]
+  controllers: [ProductsController],
 })
 export class ProductsModule {}

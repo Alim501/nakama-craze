@@ -1,12 +1,13 @@
-import { Navigate } from "react-router-dom"
+import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const RequireAdmin=({children})=>{
-    const user = useSelector(state => state.user.user);
-    if( user.role!=='admin'){
-        return <Navigate to={"/"}/>;
-    }
-    return  children
-}
+const RequireAdmin = ({ children }) => {
+  const location = useLocation();
+  const user = useSelector((state) => state.user.user);
+  if (user.role !== "admin") {
+    return <Navigate to={"/"} state={{ from: location }} />;
+  }
+  return children;
+};
 
-export {RequireAdmin};
+export { RequireAdmin };

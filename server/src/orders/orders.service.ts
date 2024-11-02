@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Order } from './orders.model';
-import { Order_item } from './order_item.model';
 import { User } from 'src/users/users.model';
 import { Item } from 'src/items/items.model';
 import { Promocode } from 'src/promocodes/promocodes.model';

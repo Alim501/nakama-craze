@@ -23,49 +23,49 @@ const AdminNavbar = () => {
           <Navbar.Collapse id="navbarScroll">
             <Nav className="me-auto my-2 my-lg-0" navbarScroll>
               <Link to={ADMIN_ROUTE} className="btn rounded-3 bg-grey me-3 ">
-                <h5>Заказы</h5>
+                <h3>Заказы</h3>
               </Link>
               <Link
                 to={ADMIN_CATEGORIES_ROUTE}
                 className="btn rounded-3 bg-grey me-3"
               >
-                <h5>Категории</h5>
+                <h3>Категории</h3>
               </Link>
               <Link
                 to={ADMIN_ANIME_ROUTE}
                 className="btn rounded-3 bg-grey me-3 "
               >
-                <h5>Аниме</h5>
+                <h3>Аниме</h3>
               </Link>
               <Link
                 to={ADMIN_PRODUCTS_ROUTE}
                 className="btn rounded-3 bg-grey me-3"
               >
-                <h5>Продукты</h5>
+                <h3>Продукты</h3>
               </Link>
               <Link
                 to={ADMIN_COLORS_ROUTE}
                 className="btn rounded-3 bg-grey me-3"
               >
-                <h5>Цвета</h5>
+                <h3>Цвета</h3>
               </Link>
               <Link
                 to={ADMIN_SIZES_ROUTE}
                 className="btn rounded-3 bg-grey me-3"
               >
-                <h5>Размеры</h5>
+                <h3>Размеры</h3>
               </Link>
               <Link
                 to={ADMIN_USERS_ROUTE}
                 className="btn rounded-3 bg-grey me-3"
               >
-                <h5>Пользователи</h5>
+                <h3>Пользователи</h3>
               </Link>
               <Link
                 to={ADMIN_PROMOCODES_ROUTE}
                 className="btn rounded-3 bg-grey me-3"
               >
-                <h5>Промокоды</h5>
+                <h3>Промокоды</h3>
               </Link>
             </Nav>
           </Navbar.Collapse>

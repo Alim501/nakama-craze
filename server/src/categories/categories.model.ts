@@ -1,25 +1,37 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Column, DataType, HasMany, HasOne, Model, Table } from "sequelize-typescript";
-import { Product } from "src/products/products.model";
-import { Size } from "src/sizes/sizes.model";
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  Column,
+  DataType,
+  HasMany,
+  HasOne,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Product } from 'src/products/products.model';
+import { Size } from 'src/sizes/sizes.model';
 
-interface CategoryCreationAttrs{
-    title:string;
-    decs:string;
+interface CategoryCreationAttrs {
+  title: string;
+  decs: string;
 }
 
-@Table({tableName:'categories'})
-export class Category extends Model<Category, CategoryCreationAttrs>{
-    @ApiProperty({example:'1',description:"Уникальный идентификатор"})
-    @Column({type:DataType.INTEGER,unique:true,autoIncrement:true,primaryKey:true})
-    id:number;
-    @ApiProperty({example:'Футболка ',description:"Название"})
-    @Column({type:DataType.STRING,unique:true,allowNull:false})
-    title:string;
+@Table({ tableName: 'categories' })
+export class Category extends Model<Category, CategoryCreationAttrs> {
+  @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
+  @Column({
+    type: DataType.INTEGER,
+    unique: true,
+    autoIncrement: true,
+    primaryKey: true,
+  })
+  id: number;
+  @ApiProperty({ example: 'Футболка ', description: 'Название' })
+  @Column({ type: DataType.STRING, unique: true, allowNull: false })
+  title: string;
 
-    @HasOne(()=>Product)
-    products:Product[]
+  @HasOne(() => Product)
+  products: Product[];
 
-    @HasMany(()=>Size)
-    sizes:Size[]
+  @HasMany(() => Size, { onDelete: 'CASCADE' })
+  sizes: Size[];
 }

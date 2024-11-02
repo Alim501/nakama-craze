@@ -9,11 +9,7 @@ import { FilesModule } from 'src/files/files.module';
 
 @Module({
   providers: [SizesService],
-  imports:[
-    FilesModule,
-    AuthModule,
-    SequelizeModule.forFeature([Size,Item]),
-  ],
-  controllers: [SizesController]
+  imports: [FilesModule, AuthModule, SequelizeModule.forFeature([Size, Item])],
+  controllers: [SizesController],
 })
 export class SizesModule {}

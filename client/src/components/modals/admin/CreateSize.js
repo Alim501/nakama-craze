@@ -9,7 +9,10 @@ import { createSize, updateSize } from "../../../http/AdminApi/SizesApi";
 const CreateSize = ({ show, onHide, initialData }) => {
   const [title, setTitle] = useState("");
   const [code, setCode] = useState("");
-  const [img, setImg] = useState(null);
+  const [length, setLength] = useState("");
+  const [shoulder, setShoulder] = useState("");
+  const [chest, setChest] = useState("");
+  const [sleeve, setSleeve] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const categories = useSelector((state) => state.categories);
   const dispatch = useDispatch();
@@ -21,25 +24,37 @@ const CreateSize = ({ show, onHide, initialData }) => {
     if (initialData) {
       setTitle(initialData.title);
       setCode(initialData.code);
-      setImg(null); // To keep current image as is
+      setLength(initialData.length);
+      setShoulder(initialData.shoulder);
+      setChest(initialData.chest);
+      setSleeve(initialData.sleeve);
       setCategoryId(initialData.category.id);
     }
   }, [dispatch, categories.status, initialData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("code", code);
-    formData.append("category_id", categoryId);
-    if (img) {
-      formData.append("img", img);
-    }
-
+    // const formData = new FormData();
+    // formData.append("title", title);
+    // formData.append("code", code);
+    // formData.append("category_id", categoryId);
+    // formData.append("length", length);
+    // formData.append("shoulder", shoulder);
+    // formData.append("chest", chest);
+    // formData.append("sleeve", sleeve);
+    const promocodeData = {
+      title,
+      code,
+      length,
+      shoulder,
+      chest,
+      sleeve,
+      category_id: categoryId,
+    };
     if (initialData) {
-      await updateSize(initialData.id, formData);
+      await updateSize(initialData.id, promocodeData);
     } else {
-      await createSize(formData);
+      await createSize(promocodeData);
     }
 
     onHide();
@@ -72,12 +87,44 @@ const CreateSize = ({ show, onHide, initialData }) => {
               onChange={(e) => setCode(e.target.value)}
             />
           </Form.Group>
-          <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Картинка для размера</Form.Label>
+          <Form.Group>
+            <Form.Label>Длина</Form.Label>
             <Form.Control
-              name="img"
-              type="file"
-              onChange={(e) => setImg(e.target.files[0])}
+              name="length"
+              type="number"
+              placeholder="Введите длину"
+              value={length}
+              onChange={(e) => setLength(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Длина плеча</Form.Label>
+            <Form.Control
+              name="shoulder"
+              type="number"
+              placeholder="Введите длину плеча"
+              value={shoulder}
+              onChange={(e) => setShoulder(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Обхват груди</Form.Label>
+            <Form.Control
+              name="chest"
+              type="number"
+              placeholder="Введите обхват груди"
+              value={chest}
+              onChange={(e) => setChest(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Длина рукава</Form.Label>
+            <Form.Control
+              name="sleeve"
+              type="number"
+              placeholder="Введите длину рукава"
+              value={sleeve}
+              onChange={(e) => setSleeve(e.target.value)}
             />
           </Form.Group>
           <Form.Select

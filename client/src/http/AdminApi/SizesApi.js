@@ -1,11 +1,7 @@
 import { $authHost } from "..";
 
 export const createSize = async (size) => {
-  const { data } = await $authHost.post("/sizes/", size, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  const { data } = await $authHost.post("/sizes/", size);
   return data;
 };
 export const getOneSize = async (id) => {
@@ -13,11 +9,7 @@ export const getOneSize = async (id) => {
   return data;
 };
 export const updateSize = async (size, id) => {
-  const { data } = await $authHost.put("/sizes/" + id, size, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  const { data } = await $authHost.put("/sizes/" + id, size);
   return data;
 };
 export const deleteSize = async (id) => {

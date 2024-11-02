@@ -16,14 +16,17 @@ export class PromocodesService {
   async getAllPromocodes() {
     return this.promocodeRepository.findAll();
   }
-  
+
   async getPromocodeById(id: number): Promise<Promocode> {
     return this.promocodeRepository.findOne({ where: { id } });
   }
   async getPromocodeByCode(code: string): Promise<Promocode> {
     return this.promocodeRepository.findOne({ where: { code } });
   }
-  async updatePromocode(id: number, dto: CreatePromocodeDto): Promise<Promocode> {
+  async updatePromocode(
+    id: number,
+    dto: CreatePromocodeDto,
+  ): Promise<Promocode> {
     await this.promocodeRepository.update(dto, { where: { id } });
     return this.promocodeRepository.findOne({ where: { id } });
   }

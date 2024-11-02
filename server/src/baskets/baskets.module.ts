@@ -11,12 +11,12 @@ import { ItemsModule } from 'src/items/items.module';
 
 @Module({
   providers: [BasketsService],
-  imports:[
+  imports: [
     ItemsModule,
-    SequelizeModule.forFeature([Basket,Basket_item,Item,User]),
-    forwardRef(()=> AuthModule),
+    SequelizeModule.forFeature([Basket, Basket_item, Item, User]),
+    forwardRef(() => AuthModule),
   ],
   controllers: [BasketsController],
-  exports:[BasketsService]
+  exports: [BasketsService],
 })
 export class BasketsModule {}

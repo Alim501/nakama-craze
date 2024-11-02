@@ -6,9 +6,7 @@ import {
   Param,
   Post,
   Put,
-  UploadedFile,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Size } from './sizes.model';
@@ -17,26 +15,24 @@ import { Role } from 'src/auth/role.enum';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { CreateSizeDto } from './dto/create-size.dto';
 import { SizesService } from './sizes.service';
-import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('sizes')
 export class SizesController {
   constructor(private sizesService: SizesService) {}
 
   @ApiOperation({ summary: 'Создание размера' })
-  @ApiResponse({ status: 200, type: [Size] })
+  @ApiResponse({ status: 200, type: Size })
   @Roles(Role.Admin)
   @UseGuards(RolesGuard)
-  @UseInterceptors(FileInterceptor('img'))
   @Post()
-  createPromocode(@Body() sizeDto: CreateSizeDto, @UploadedFile() img) {
-    return this.sizesService.createSize(sizeDto, img);
+  createSize(@Body() sizeDto: CreateSizeDto): Promise<Size> {
+    return this.sizesService.createSize(sizeDto);
   }
-  
+
   @ApiOperation({ summary: 'Возвращение всех размеров' })
   @ApiResponse({ status: 200, type: [Size] })
   @Get()
-  getAllSizes() {
+  getAllSizes(): Promise<Size[]> {
     return this.sizesService.getAllSizes();
   }
 
@@ -48,19 +44,17 @@ export class SizesController {
   async getOneSize(@Param('id') id: string): Promise<Size> {
     return this.sizesService.getOneSize(Number(id));
   }
-  
+
   @ApiOperation({ summary: 'Обновление размера' })
   @ApiResponse({ status: 200, type: Size })
   @Put(':id')
-  @UseInterceptors(FileInterceptor('img'))
   @Roles(Role.Admin)
   @UseGuards(RolesGuard)
   async updateSize(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() dto: CreateSizeDto,
-    @UploadedFile() img,
   ): Promise<Size> {
-    return this.sizesService.updateSize({id:Number(id),dto,img});
+    return this.sizesService.updateSize(id, dto);
   }
 
   @ApiOperation({ summary: 'Удаление размера' })

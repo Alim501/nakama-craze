@@ -1,115 +1,48 @@
-import React, { useState } from "react";
-import { Button, Card, Container, Form } from "react-bootstrap";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { Card, Container } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../../utils/consts";
-import { useDispatch } from "react-redux";
-import { userLogin, userRegistration } from "../../store/UserSlice";
+import Login from "../../components/Auth/Login";
+import Register from "../../components/Auth/Register";
 
 const Auth = () => {
   const location = useLocation();
-  const fromPage = location.state?.from?.pathname || "/";
-  const navigate = useNavigate();
   const isLogin = location.pathname === LOGIN_ROUTE;
   const isRegister = location.pathname === REGISTRATION_ROUTE;
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  async function handleSubmit(e) {
-    e.preventDefault();
-    try {
-      if (isLogin) {
-        await dispatch(userLogin({ email, name, password })).unwrap();
-      } else if (isRegister) {
-        await dispatch(userRegistration({ email, name, password })).unwrap();
-      }
-      navigate(fromPage, { replace: true });
-    } catch (error) {
-      console.log(error);
-      alert(error.message);
-    }
-  }
+
+  const previousLocation = location.state?.from || "/";
 
   return (
-    <Container>
-      <Card>
-        {isLogin ? (
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formLoginEmail">
-              <Form.Label>Почтовый адрес</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="почтовый адрес"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formLoginName">
-              <Form.Label>Имя пользователя</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Имя пользователя"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formLoginPassword">
-              <Form.Label>Пароль</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="пароль"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Form.Group>
-            <Button type="submit">ВОЙТИ</Button>
-          </Form>
-        ) : isRegister ? (
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formRegisterEmail">
-              <Form.Label>Почтовый адрес</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="почтовый адрес"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formRegisterName">
-              <Form.Label>Имя пользователя</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Имя пользователя"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formRegisterPassword">
-              <Form.Label>Пароль</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="пароль"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Form.Group>
-            <Button type="submit">ЗАРЕГИСТРИРОВАТЬСЯ</Button>
-          </Form>
-        ) : (
+    <div className="bg-black h-71vh align-content-center">
+      <Container>
+        <Card className="w-25 mx-auto rounded-4 bg-F5">
           <Card.Body>
-            <Link to={LOGIN_ROUTE} className="btn rounded-3 bg-grey me-3">
-              <h5>ВОЙТИ</h5>
-            </Link>
-            <Link
-              to={REGISTRATION_ROUTE}
-              className="btn rounded-3 bg-grey me-3"
-            >
-              <h5>ЗАРЕГИСТРИРОВАТЬСЯ</h5>
-            </Link>
+            {isLogin ? (
+              <Login previousLocation={previousLocation} />
+            ) : isRegister ? (
+              <Register previousLocation={previousLocation} />
+            ) : (
+              <div>
+                <Link
+                  to={LOGIN_ROUTE}
+                  state={{ from: previousLocation }}
+                  className="w-100 btn text-D9 rounded-3 bg-26 mb-3 py-3"
+                >
+                  <h3>ВОЙТИ</h3>
+                </Link>
+                <Link
+                  to={REGISTRATION_ROUTE}
+                  state={{ from: previousLocation }}
+                  className="w-100 btn rounded-3 text-D9 bg-26 py-3"
+                >
+                  <h3>РЕГИСТРАЦИЯ</h3>
+                </Link>
+              </div>
+            )}
           </Card.Body>
-        )}
-      </Card>
-    </Container>
+        </Card>
+      </Container>
+    </div>
   );
 };
 

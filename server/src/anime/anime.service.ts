@@ -27,6 +27,7 @@ export class AnimeService {
     dto: CreateAnimeDto;
     img?: any;
   }): Promise<Anime> {
+    // eslint-disable-next-line prefer-const
     let { dto, img, id } = params;
     if (img) {
       const fileName = await this.fileService.createFile(img, 'Anime');

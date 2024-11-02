@@ -7,12 +7,12 @@ import { CreateColorDto } from './dto/create-color.dto';
 export class ColorsService {
   constructor(@InjectModel(Color) private colorRepository: typeof Color) {}
 
-  async createColor(dto: CreateColorDto) {
+  async createColor(dto: CreateColorDto): Promise<Color> {
     const color = await this.colorRepository.create(dto);
     return color;
   }
 
-  async getAllColors() {
+  async getAllColors(): Promise<Color[]> {
     const colors = await this.colorRepository.findAll();
     return colors;
   }

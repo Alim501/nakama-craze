@@ -1,12 +1,36 @@
 @font-face {
   font-family: 'RoadRadio';
-  src: url('../public/fonts/RoadRadioThin.woff') format('woff');
+  src: url('../public/fonts/RoadRadioLight.woff') format('woff');
   font-weight: 300;
 }
 @font-face {
   font-family: 'RoadRadio';
-  src: url('../public/fonts/RoadRadioLight.woff') format('woff');
+  src: url('../public/fonts/RoadRadio.woff') format('woff');
   font-weight: 400;
+}
+@font-face {
+  font-family: 'RoadRadio';
+  src: url('../public/fonts/RoadRadioThin.ttf') format('woff');
+  font-weight: 100;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../public/fonts/Montserrat-Light.ttf') format('woff');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../public/fonts/Montserrat-Regular.ttf') format('woff');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../public/fonts/Montserrat-Medium.ttf') format('woff');
+  font-weight: 500;
+}
+html {
+  font-size: 68.75%; 
+  color: #262626;
 }
 
 body {
@@ -14,15 +38,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-h1,h2,h3,h4{
+h1{
   font-weight: 400  !important;
   margin-bottom: 0px !important;
-  font-family: 'RoadRadio'; 
+  font-family: 'RoadRadio';
 }
-h5,p{
+h2,h3,h4,h5, input::placeholder{
   font-weight: 300  !important;
   margin-bottom: 0px !important;
   font-family: 'RoadRadio';
 }
-
-
+p,li,ul, ul li::marker{
+  margin-bottom: 0px !important;
+  font-family: 'Montserrat';
+}
+ul li::marker{
+  font-size: 7px;
+}
+td{
+  padding: 0 !important;
+}

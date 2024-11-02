@@ -9,6 +9,6 @@ export const sqlConfig = registerAs('database', () => ({
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRESS_PASSWORD,
   database: process.env.POSTGRES_DB,
-  autoLoadModels:true,
-  synchronize:true
+  autoLoadModels: true,
+  synchronize: true,
 }));

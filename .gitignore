@@ -1,0 +1,36 @@
+# Игнорировать системные настройки и служебные файлы
+.vscode/
+.DS_Store
+
+# Корневые файлы node и lock-файлы
+node_modules/
+package-lock.json
+
+# Игнорировать конфигурационные файлы
+.env
+*.env
+
+# Игнорировать файлы и папки в клиентской части
+client/node_modules/
+client/dist/
+client/public/
+client/.env
+
+# Игнорировать файлы и папки в серверной части
+server/node_modules/
+server/dist/
+server/static/
+server/test/
+server/.babelrc
+server/.development.env
+server/.production.env
+server/.eslintrc.js
+server/.prettierrc
+server/jest.config.ts
+server/nest-cli.json
+server/tsconfig.build.json
+server/tsconfig.json
+
+# Исключение для файлов README
+!client/Readme.md
+!server/Readme.md

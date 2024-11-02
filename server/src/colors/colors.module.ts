@@ -9,10 +9,10 @@ import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   providers: [ColorsService],
-  imports:[
-    forwardRef(()=> AuthModule),
-    SequelizeModule.forFeature([Product,Color,Item]),
+  imports: [
+    forwardRef(() => AuthModule),
+    SequelizeModule.forFeature([Product, Color, Item]),
   ],
-  controllers: [ColorsController]
+  controllers: [ColorsController],
 })
 export class ColorsModule {}

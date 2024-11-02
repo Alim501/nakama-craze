@@ -9,7 +9,10 @@ const AdminSizes = () => {
   const tableHead = [
     "Название",
     "код",
-    "изображение",
+    "дилна",
+    "плечо",
+    "грудь",
+    "рукав",
     "категория",
     "Дата обновления ",
     "Дата создания ",
@@ -90,10 +93,10 @@ const AdminSizes = () => {
               <td>{size.id}</td>
               <td>{size.title}</td>
               <td>{size.code}</td>
-              <td>
-                {" "}
-                <img src={process.env.REACT_APP_API_URL+"/files/Sizes/"+size.img} alt={size.title} width="100" />
-              </td>
+              <td>{size.length}</td>
+              <td>{size.shoulder}</td>
+              <td>{size.chest}</td>
+              <td>{size.sleeve}</td>
               <td>{size.category.title}</td>
               <td>{size.updatedAt}</td>
               <td>{size.createdAt}</td>

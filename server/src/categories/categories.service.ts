@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { Category } from './categories.model';
 import { InjectModel } from '@nestjs/sequelize';
-import { where } from 'sequelize';
 import { Size } from 'src/sizes/sizes.model';
 
 @Injectable()
@@ -16,7 +15,9 @@ export class CategoriesService {
   }
 
   async getAllCategories(): Promise<Category[]> {
-    return this.categoryRepository.findAll({ include: { model: Size, attributes: ['code'] } });
+    return this.categoryRepository.findAll({
+      include: { model: Size, attributes: ['code'] },
+    });
   }
 
   async getOneCategory(id: number): Promise<Category> {

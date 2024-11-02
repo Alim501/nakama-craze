@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
-import { Alert, Container, Spinner } from "react-bootstrap";
-import RectangleBlock from "../../components/Grid/RectangleBlock";
+import { Alert, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAnime } from "../../store/AnimeSlice";
+import Rectangle from "../../components/Grid/Rectangle";
+import AnimeBar from "../../components/Elements/AnimeBar";
+import Loading from "../../components/Elements/Loading";
 
 const Anime = () => {
   const anime = useSelector((state) => state.anime);
@@ -14,13 +16,7 @@ const Anime = () => {
   }, [dispatch, anime.status]);
 
   if (anime.status === "loading") {
-    return(
-    <div className="text-center my-5">
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Загрузка...</span>
-      </Spinner>
-    </div>
-    );
+    return <Loading></Loading>;
   }
 
   if (anime.status === "failed") {
@@ -30,15 +26,26 @@ const Anime = () => {
       </div>
     );
   }
-
-  const rectangles = [];
-  for (let i = 0; i < anime.items.length; i += 3) {
-    rectangles.push(
-      <RectangleBlock key={i} anime={anime.items} i={i}></RectangleBlock>
-    );
-  }
-
-  return <Container>{rectangles}</Container>;
+  const animeBarData = anime.items
+    ? anime.items.map((anim) => ({
+        id: anim.id,
+        title: anim.title,
+      }))
+    : [];
+  return (
+    <div>
+      <AnimeBar animes={animeBarData.length > 0 ? animeBarData : []}></AnimeBar>
+      <Container className="my-5">
+        <Row md={2}>
+          {anime.items.map((anim, idx) => (
+            <Col key={idx}>
+              <Rectangle img={anim.img}></Rectangle>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </div>
+  );
 };
 
 export default Anime;

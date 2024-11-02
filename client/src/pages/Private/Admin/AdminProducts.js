@@ -55,6 +55,7 @@ const AdminProducts = () => {
     "Название",
     "Цена",
     "Описание",
+    "Ссылка",
     "Иконка",
     "Цвета",
     "Аниме",
@@ -94,6 +95,7 @@ const AdminProducts = () => {
               <td>{product.title}</td>
               <td>{product.price}</td>
               <td>{product.desc}</td>
+              <td>{product.slug}</td>
               <td>{product.icon}</td>
               <td>
                 {product.colors?.map((color) => (

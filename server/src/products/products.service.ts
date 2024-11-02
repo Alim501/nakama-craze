@@ -17,10 +17,9 @@ export class ProductsService {
     private fileService: FilesService,
   ) {}
 
-  async createProduct(dto: CreateProductDto, files) {
+  async createProduct(dto: CreateProductDto, files): Promise<Product> {
     const icon = await this.fileService.createFile(files.icon[0], 'Products');
     const product = await this.productRepository.create({ ...dto, icon });
-
     await this.createOrUpdateColors(dto.colors_id, product.id);
     await this.createOrUpdateImages(files.imgs, product.id);
 
@@ -46,26 +45,37 @@ export class ProductsService {
     return product;
   }
 
-  async createOrUpdateColors(colors_id: number[], product_id: number) {
+  async createOrUpdateColors(
+    colors_id: number[],
+    product_id: number,
+  ): Promise<Product> {
     if (!colors_id || !colors_id.length) return;
 
     await this.product_colorRepository.destroy({
       where: { product_id },
     });
-
-    const colorPromises = colors_id.map((color_id) =>
-      this.product_colorRepository.create({
-        product_id,
-        color_id,
-      }),
-    );
+    let colorPromises;
+    if (colors_id.length > 1) {
+      colorPromises = colors_id.map((color_id) =>
+        this.product_colorRepository.create({
+          product_id,
+          color_id,
+        }),
+      );
+    } else {
+      colorPromises = [
+        this.product_colorRepository.create({
+          product_id,
+          color_id: colors_id[0],
+        }),
+      ];
+    }
 
     await Promise.all(colorPromises);
   }
 
-  async createOrUpdateImages(imgs, product_id: number) {
+  async createOrUpdateImages(imgs, product_id: number): Promise<any> {
     if (!imgs || !imgs.length) return;
-
     await this.product_imgRepository.destroy({
       where: { product_id },
     });
@@ -79,9 +89,12 @@ export class ProductsService {
     }
   }
 
-  async getAllProducts(query: any) {
+  async getAllProducts(
+    query: any,
+  ): Promise<{ products: Product[]; total: number }> {
     const { anime_id, category_id, limit, page } = query;
     const offset = (page - 1) * limit || 0;
+
     const options: any = {
       include: [
         {
@@ -97,16 +110,26 @@ export class ProductsService {
     if (anime_id) options.where = { ...options.where, anime_id };
     if (category_id) options.where = { ...options.where, category_id };
 
-    return this.productRepository.findAll(options);
+    const products = await this.productRepository.findAll(options);
+
+    const totalOptions: any = { ...options };
+    delete totalOptions.limit;
+    delete totalOptions.offset;
+
+    const total = await this.productRepository.count({
+      where: totalOptions.where,
+    });
+
+    return { products, total };
   }
 
-  async getOneProductById(product_id: number) {
+  async getOneProductById(slug: string): Promise<Product> {
     const product = await this.productRepository.findOne({
-      where: { id: product_id },
+      where: { slug: slug },
       include: [
         {
           association: 'colors',
-          attributes: ['color', 'title', 'text_color'],
+          attributes: ['id', 'color', 'title', 'text_color'],
         },
         {
           association: 'imgs',
@@ -114,16 +137,22 @@ export class ProductsService {
         },
         {
           association: 'category',
-          attributes: ['title'], 
+          attributes: ['title'],
           include: [
             {
               association: 'sizes',
-              attributes: ['code'], 
+              attributes: ['id', 'code'],
             },
           ],
         },
       ],
     });
     return product;
+  }
+
+  async deleteProduct(id: number): Promise<number> {
+    return this.productRepository.destroy({
+      where: { id },
+    });
   }
 }

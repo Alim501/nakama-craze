@@ -1,8 +1,9 @@
 import React from "react";
-const Price = ({price}) => {
+const Price = ({ price }) => {
+  const textPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   return (
-    <h4>
-      {price}
+    <h1>
+      {textPrice}
       <svg
         width="12"
         height="14"
@@ -27,7 +28,7 @@ const Price = ({price}) => {
           fill="#262626"
         />
       </svg>
-    </h4>
+    </h1>
   );
 };
 export default Price;

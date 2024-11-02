@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -18,6 +19,7 @@ import { Roles } from 'src/auth/roles-auth.decorator';
 import { Role } from 'src/auth/role.enum';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { CreateProductDto } from './dto/create-product.dto';
+import { NUMBER } from 'sequelize';
 
 @Controller('products')
 export class ProductsController {
@@ -26,15 +28,17 @@ export class ProductsController {
   @ApiOperation({ summary: 'Получение списка продуктов' })
   @ApiResponse({ status: 200, type: [Product] })
   @Get()
-  async getAllProducts(@Query() query): Promise<Product[]> {
+  async getAllProducts(
+    @Query() query,
+  ): Promise<{ products: Product[]; total: number }> {
     return this.productsService.getAllProducts(query);
   }
 
   @ApiOperation({ summary: 'Получение одного продукта' })
   @ApiResponse({ status: 200, type: Product })
-  @Get(':id')
-  async getOneProduct(@Param('id') id: number): Promise<Product> {
-    return this.productsService.getOneProductById(id);
+  @Get(':slug')
+  async getOneProduct(@Param('slug') slug: string): Promise<Product> {
+    return this.productsService.getOneProductById(slug);
   }
 
   @ApiOperation({ summary: 'Создание продукта' })
@@ -52,6 +56,7 @@ export class ProductsController {
   ): Promise<Product> {
     return this.productsService.createProduct(productDto, files);
   }
+
   @ApiOperation({ summary: 'Редактирование продукта' })
   @ApiResponse({ status: 200, type: [Product] })
   @Put(':id')
@@ -66,6 +71,15 @@ export class ProductsController {
     @UploadedFiles()
     files: { icon?: Express.Multer.File[]; background?: Express.Multer.File[] },
   ): Promise<Product> {
-    return this.productsService.updateProduct(id,sizeDto, files);
+    return this.productsService.updateProduct(id, sizeDto, files);
+  }
+
+  @ApiOperation({ summary: 'Удаление продукта' })
+  @ApiResponse({ status: 200, type: NUMBER })
+  @Delete(':id')
+  @Roles(Role.Admin)
+  @UseGuards(RolesGuard)
+  async deleteBasketItem(@Param('id') id: number): Promise<number> {
+    return this.productsService.deleteProduct(id);
   }
 }

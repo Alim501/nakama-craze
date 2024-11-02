@@ -8,19 +8,16 @@ import { BasketsModule } from 'src/baskets/baskets.module';
 @Module({
   controllers: [AuthController],
   providers: [AuthService],
-  imports:[
-    forwardRef(()=>BasketsModule),
-    forwardRef(()=> UsersModule),
+  imports: [
+    forwardRef(() => BasketsModule),
+    forwardRef(() => UsersModule),
     JwtModule.register({
-      secret:process.env.PRIVATE_KEY||"SERCRET",
-      signOptions:{
-        expiresIn:'24h'
-      }
-    })
+      secret: process.env.PRIVATE_KEY || 'SERCRET',
+      signOptions: {
+        expiresIn: '24h',
+      },
+    }),
   ],
-  exports:[
-    AuthModule,
-    JwtModule,
-  ]
+  exports: [AuthModule, JwtModule],
 })
 export class AuthModule {}

@@ -9,11 +9,11 @@ import { Product } from 'src/products/products.model';
 
 @Module({
   providers: [AnimeService],
-  imports:[
+  imports: [
     FilesModule,
-    SequelizeModule.forFeature([Anime,Product]),
-    forwardRef(()=> AuthModule),
+    SequelizeModule.forFeature([Anime, Product]),
+    forwardRef(() => AuthModule),
   ],
-  controllers: [AnimeController]
+  controllers: [AnimeController],
 })
 export class AnimeModule {}

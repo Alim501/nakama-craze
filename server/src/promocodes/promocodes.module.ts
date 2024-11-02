@@ -8,10 +8,7 @@ import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   controllers: [PromocodesController],
-  imports:[
-    AuthModule,
-    SequelizeModule.forFeature([Promocode,Order]),
-  ],
-  providers: [PromocodesService]
+  imports: [AuthModule, SequelizeModule.forFeature([Promocode, Order])],
+  providers: [PromocodesService],
 })
 export class PromocodesModule {}

@@ -12,6 +12,7 @@ const CreateProduct = observer(({ show, onHide, initialData }) => {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [icon, setIcon] = useState(null);
+  const [slug, setSlug] = useState(null);
   const [images, setImages] = useState(null);
   const [animeId, setAnimeId] = useState("");
   const [categoryId, setCategoryId] = useState("");
@@ -23,7 +24,7 @@ const CreateProduct = observer(({ show, onHide, initialData }) => {
     error: null,
   });
 
-  const { colors, isLoading, error } = state;
+  const { colors } = state;
 
   const categories = useSelector((state) => state.categories);
   const anime = useSelector((state) => state.anime);
@@ -44,6 +45,7 @@ const CreateProduct = observer(({ show, onHide, initialData }) => {
       setTitle(initialData.title);
       setPrice(initialData.price);
       setDescription(initialData.description);
+      setSlug(initialData.slug)
       setAnimeId(initialData.anime_id);
       setCategoryId(initialData.category_id);
       setProductColors(initialData.colors_id);
@@ -62,6 +64,7 @@ const CreateProduct = observer(({ show, onHide, initialData }) => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("price", price);
+    formData.append("slug",slug)
     formData.append("desc", description);
 
     if (icon) {
@@ -124,6 +127,14 @@ const CreateProduct = observer(({ show, onHide, initialData }) => {
               rows={3}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Ссылка</Form.Label>
+            <Form.Control
+              placeholder="Введите путь ссылки на продукт"
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="formFile" className="mb-3">

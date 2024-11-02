@@ -22,7 +22,7 @@ export const createNewCategory = createAsyncThunk(
 );
 export const updateExistingCategory = createAsyncThunk(
   "category/updateExistingCategory",
-  async ( {id, title} ) => {
+  async ({ id, title }) => {
     const response = await updateCategory(id, title);
     return response;
   }
@@ -31,7 +31,7 @@ export const updateExistingCategory = createAsyncThunk(
 export const deleteExistingCategory = createAsyncThunk(
   "category/deleteExistingCategory",
   async (id) => {
-    console.log(id)
+    console.log(id);
     const response = await deleteCategory(id);
     return response;
   }

@@ -10,10 +10,10 @@ import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   controllers: [OrdersController],
-  imports:[
-    forwardRef(()=>AuthModule),
-    SequelizeModule.forFeature([Order,Order_item,Item,Promocode]),
+  imports: [
+    forwardRef(() => AuthModule),
+    SequelizeModule.forFeature([Order, Order_item, Item, Promocode]),
   ],
-  providers: [OrdersService]
+  providers: [OrdersService],
 })
 export class OrdersModule {}

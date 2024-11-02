@@ -32,7 +32,7 @@ import { Product_Color } from './products/product_color.model';
   providers: [],
   imports: [
     ConfigModule.forRoot({
-      envFilePath:`.${process.env.NODE_ENV}.env`
+      envFilePath: `.${process.env.NODE_ENV}.env`,
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
@@ -41,8 +41,23 @@ import { Product_Color } from './products/product_color.model';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRESS_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User,Anime,Basket,Basket_item,Category,Color,Product_Color,Item,Order,Order_item,Product,Product_Img,Promocode,Size],
-      autoLoadModels:true
+      models: [
+        User,
+        Anime,
+        Basket,
+        Basket_item,
+        Category,
+        Color,
+        Product_Color,
+        Item,
+        Order,
+        Order_item,
+        Product,
+        Product_Img,
+        Promocode,
+        Size,
+      ],
+      autoLoadModels: true,
     }),
     UsersModule,
     AuthModule,
@@ -56,6 +71,6 @@ import { Product_Color } from './products/product_color.model';
     OrdersModule,
     ItemsModule,
     FilesModule,
-  ]
+  ],
 })
 export class AppModule {}

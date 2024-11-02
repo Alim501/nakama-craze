@@ -10,12 +10,10 @@ import { Order } from 'src/orders/orders.model';
 @Module({
   controllers: [UsersController],
   providers: [UsersService],
-  imports:[
-    SequelizeModule.forFeature([User,Basket,Order]),
-    forwardRef(()=> AuthModule),
+  imports: [
+    SequelizeModule.forFeature([User, Basket, Order]),
+    forwardRef(() => AuthModule),
   ],
-  exports:[
-    UsersService,
-  ]
+  exports: [UsersService],
 })
 export class UsersModule {}

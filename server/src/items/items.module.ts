@@ -11,10 +11,11 @@ import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   providers: [ItemsService],
-  imports:[
-    forwardRef(()=> AuthModule),
-    SequelizeModule.forFeature([Item,Basket,Basket_item,Order,Order_item]),
+  imports: [
+    forwardRef(() => AuthModule),
+    SequelizeModule.forFeature([Item, Basket, Basket_item, Order, Order_item]),
   ],
   controllers: [ItemsController],
+  exports: [ItemsService],
 })
 export class ItemsModule {}
